@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using DG.DOTweenEditor;
 using DG.Tweening;
 using DG.Tweening.Core;
 using UnityEditor;
@@ -23,7 +24,6 @@ namespace DtAnim
         {
             m_src = EditorHelper.GetTargetObjectOfProperty(property) as DtAnimBehavior;
             EditorGUI.BeginProperty(position, label, property);
-
             if (m_src.target == null)
             {
                 var mono = (property.serializedObject.targetObject as MonoBehaviour);
@@ -42,13 +42,14 @@ namespace DtAnim
             if (m_src.isFoldOut)
             {
                 Undo.RecordObject(m_src.target, "DOTween Animation");
-                if (Application.isPlaying)
+                DrawPreviewEditGUI();
+                GUILayout.Space(10);
+                if (m_src.IsTweenCreated)
                 {
-                    DrawRuntimeEditGUI();
-                    GUILayout.Space(10);
+                    GUILayout.Label("Cannot edit in playing");
                 }
                 var lastGUIEnable = GUI.enabled;
-                GUI.enabled = m_src.IsPlaying == false && lastGUIEnable;
+                GUI.enabled = m_src.IsTweenCreated == false && lastGUIEnable;
                 DrawTargetGUI(property);
                 GUILayout.Space(10);
                 DrawLoadPresetGUI();
@@ -59,20 +60,25 @@ namespace DtAnim
             if (GUI.changed) EditorUtility.SetDirty(m_src.target);
             EditorGUI.EndProperty();
         }
-        private void DrawRuntimeEditGUI()
+        private void DrawPreviewEditGUI()
         {
             GUILayout.BeginVertical(GUI.skin.window);
             GUILayout.BeginVertical(GUI.skin.box);
             {
+                GUILayout.Label("Preview");
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Play"))
                 {
-                    m_src.ClearTween();
-                    m_src.DOPlay();
+                    m_src.Reset();
+                    m_src.CreateNewTween();
+                    DOTweenEditorPreview.PrepareTweenForPreview(m_src.m_tween);
+                    DOTweenEditorPreview.Start();
                 }
-                if (GUILayout.Button("Rewind"))
+                if (GUILayout.Button("Reset"))
                 {
-                    m_src.DORewind();
+                    m_src.Reset();
                 }
+                GUILayout.EndHorizontal();
             }
             GUILayout.EndVertical();
             GUILayout.EndVertical();
@@ -140,7 +146,9 @@ namespace DtAnim
                 }
                 if (GUILayout.Button("Delete"))
                 {
-                    DtAnimPresetManager.Instance.DeletePreset(m_src.categoryName, m_src.presetName);
+                    var confirmDialog = EditorUtility.DisplayDialog("Delete", $"Preset Category:{m_src.categoryName}\nPreset Name:{m_src.presetName}", "Yes", "No");
+                    if (confirmDialog)
+                        DtAnimPresetManager.Instance.DeletePreset(m_src.categoryName, m_src.presetName);
                 }
                 GUILayout.Space(10);
                 GUI.enabled = lastGUIEnable;

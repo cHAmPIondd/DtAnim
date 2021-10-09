@@ -373,17 +373,6 @@ namespace DtAnim
 
             return tween;
         }
-        public void Rewind(Tween _tween)
-        {
-            if(isFrom)
-            {
-                _tween.Complete();
-            }
-            else
-            {
-                _tween.Rewind();
-            }
-        }
         #region Internal Static Helpers (also used by Inspector)
 
         public static TargetType TypeToDOTargetType(Type t)

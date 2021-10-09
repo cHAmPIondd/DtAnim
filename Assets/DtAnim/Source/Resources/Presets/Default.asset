@@ -16,7 +16,7 @@ MonoBehaviour:
   dtAnim:
     isSpeedBased: 0
     delay: 0
-    duration: 0.5
+    duration: 0.2
     easeType: 6
     easeCurve:
       serializedVersion: 2
@@ -49,7 +49,7 @@ MonoBehaviour:
     isFrom: 1
     isIndependentUpdate: 0
     targetComponent: {fileID: 0}
-    animationType: 5
+    animationType: 2
     endValueFloat: 0
     endValueV3: {x: 0, y: 0, z: 0}
     endValueV2: {x: 0, y: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
       y: 0
       width: 0
       height: 0
-    optionalBool0: 1
+    optionalBool0: 0
     optionalFloat0: 0
     optionalInt0: 0
     optionalRotationMode: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   dtAnim:
     isSpeedBased: 0
     delay: 0
-    duration: 0.5
+    duration: 0.2
     easeType: 6
     easeCurve:
       serializedVersion: 2

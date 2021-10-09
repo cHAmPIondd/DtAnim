@@ -29,14 +29,14 @@ namespace DtAnim
             presets.Add(newPreset);
             UnityEditor.AssetDatabase.AddObjectToAsset(newPreset, this);
             UnityEditor.EditorUtility.SetDirty(this);
-            UnityEditor.AssetDatabase.SaveAssets();
+            //UnityEditor.AssetDatabase.SaveAssets();
         }
         public void UpdatePreset(string _presetName, DtAnim _dtAnim)
         {
             var preset = presets.Find(x => x.presetName == _presetName);
             preset.dtAnim = _dtAnim.Clone() as DtAnim;
             UnityEditor.EditorUtility.SetDirty(this);
-            UnityEditor.AssetDatabase.SaveAssets();
+            //UnityEditor.AssetDatabase.SaveAssets();
         }
         public void DeletePreset(string _presetName)
         {
@@ -46,7 +46,7 @@ namespace DtAnim
                 presets.Remove(preset);
                 UnityEditor.AssetDatabase.RemoveObjectFromAsset(preset);
                 UnityEditor.EditorUtility.SetDirty(this);
-                UnityEditor.AssetDatabase.SaveAssets();
+                //UnityEditor.AssetDatabase.SaveAssets();
             }
         }
 #endif

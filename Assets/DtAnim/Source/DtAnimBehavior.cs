@@ -12,6 +12,10 @@ namespace DtAnim
     [System.Serializable]
     public class DtAnimBehavior
     {
+        public event System.Action onPlay;
+        public event System.Action onStop;
+        public event System.Action onComplete;
+
         [SerializeField]
         internal DtAnim dtAnim = new DtAnim();
         [SerializeField]
@@ -26,34 +30,94 @@ namespace DtAnim
         internal bool isFoldOut;
 
         internal Tween m_tween;
-        internal bool IsPlaying { get; set; }
+        internal bool IsTweenCreated { get { return m_tween != null; } }
+        /// <summary>
+        /// When equal to true, the onComplete callback is not triggered
+        /// </summary>
+        private bool isDisableCompleteCallback;
         ~DtAnimBehavior()
         {
-            ClearTween();
+            Reset();
         }
-        internal void ClearTween()
+        /// <summary>
+        /// Reset status to before playback
+        /// </summary>
+        internal void Reset()
         {
-            DORewind();
-            m_tween.Kill();
-            m_tween = null;
+            if (m_tween != null)
+            {
+                if (dtAnim.isFrom)
+                {
+                    isDisableCompleteCallback = true;
+                    m_tween.Complete();
+                    isDisableCompleteCallback = false;
+                }
+                else
+                {
+                    m_tween.Rewind();
+                    onStop?.Invoke();
+                }
+                m_tween.Kill();
+                m_tween = null;
+            }
         }
+        internal void CreateNewTween()
+        {
+            Assert.IsNull(m_tween);
+            Assert.IsNotNull(target);
+            if (isLoadPresetAtRuntime)
+                dtAnim = DtAnimPresetManager.Instance.LoadPreset(categoryName, presetName);
+            m_tween = dtAnim.CreateNewTween(target);
+            if (m_tween != null)
+            {
+                m_tween.onComplete += () =>
+                {
+                    if (isDisableCompleteCallback == false)
+                        onComplete?.Invoke();
+                    onStop?.Invoke();
+                };
+            }
+        }
+        /// <summary>
+        /// Replay the tween, create a new tween when the tween is null
+        /// </summary>
+        /// <param name="_onComplete"></param>
         public void DOPlay()
         {
-            Assert.IsNotNull(target);
-            Assert.IsNull(m_tween);
             if (m_tween == null)
             {
-                if (isLoadPresetAtRuntime)
-                    dtAnim = DtAnimPresetManager.Instance.LoadPreset(categoryName, presetName);
-                m_tween = dtAnim.CreateNewTween(target);
+                CreateNewTween();
             }
-            m_tween?.Restart();
-            IsPlaying = true;
+            if (m_tween != null)
+            {
+                onPlay?.Invoke();
+                m_tween.Restart();
+            }
         }
-        public void DORewind()
+        /// <summary>
+        /// Complete playing tween
+        /// </summary>
+        /// <param name="_withCallbacks">Determines whether the onComplete callback is triggered</param>
+        public void DOComplete(bool _withCallbacks)
         {
-            dtAnim.Rewind(m_tween);
-            IsPlaying = false;
+            if (m_tween != null && m_tween.IsPlaying())
+            {
+                isDisableCompleteCallback = _withCallbacks == false;
+                m_tween.Complete();
+                isDisableCompleteCallback = false;
+            }
+        }
+        /// <summary>
+        /// Stop tween in the current frame state
+        /// </summary>
+        public void DOKill()
+        {
+            if (m_tween != null && m_tween.IsPlaying())
+            {
+                onStop?.Invoke();
+                m_tween.Kill();
+                m_tween = null;
+            }
         }
     }
 }
