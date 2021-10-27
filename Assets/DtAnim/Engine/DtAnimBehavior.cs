@@ -17,20 +17,20 @@ namespace DtAnim
         public event System.Action onComplete;
 
         [SerializeField]
-        internal DtAnim dtAnim = new DtAnim();
+        public DtAnim dtAnim = new DtAnim();
         [SerializeField]
-        internal GameObject target;
+        public GameObject target;
         [SerializeField]
-        internal bool isLoadPresetAtRuntime;
+        public bool isLoadPresetAtRuntime;
         [SerializeField]
-        internal string categoryName;
+        public string categoryName;
         [SerializeField]
-        internal string presetName;
+        public string presetName;
         [SerializeField]
-        internal bool isFoldOut;
+        public bool isFoldOut;
 
-        internal Tween m_tween;
-        internal bool IsTweenCreated { get { return m_tween != null; } }
+        public Tween m_tween;
+        public bool IsTweenCreated { get { return m_tween != null; } }
         /// <summary>
         /// When equal to true, the onComplete callback is not triggered
         /// </summary>
@@ -42,7 +42,7 @@ namespace DtAnim
         /// <summary>
         /// Reset status to before playback
         /// </summary>
-        internal void Reset()
+        public void Reset()
         {
             if (m_tween != null)
             {
@@ -61,7 +61,7 @@ namespace DtAnim
                 m_tween = null;
             }
         }
-        internal void CreateNewTween()
+        public void CreateNewTween()
         {
             Assert.IsNull(m_tween);
             Assert.IsNotNull(target);
