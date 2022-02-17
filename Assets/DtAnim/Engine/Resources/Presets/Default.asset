@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8700393574565491708
+--- !u!114 &-7682026093800726384
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,63 +10,81 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 748f9cb2ffe1d6548adbd6d560f15c07, type: 3}
-  m_Name: JumpOut_S
+  m_Name: DefaultPopup
   m_EditorClassIdentifier: 
-  presetName: JumpOut_S
-  dtAnim:
-    isSpeedBased: 0
-    delay: 0
-    duration: 0.1
-    easeType: 6
-    easeCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    loopType: 0
-    loops: 1
-    id: 
-    isRelative: 0
-    isFrom: 1
-    isIndependentUpdate: 0
-    targetComponent: {fileID: 0}
-    animationType: 5
-    endValueFloat: 0
-    endValueV3: {x: 0, y: 0, z: 0}
-    endValueV2: {x: 0, y: 0}
-    endValueColor: {r: 1, g: 1, b: 1, a: 1}
-    endValueString: 
-    endValueRect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    optionalBool0: 1
-    optionalFloat0: 0
-    optionalInt0: 0
-    optionalRotationMode: 0
-    optionalScrambleMode: 0
-    optionalString: 
+  presetName: DefaultPopup
+  dtAnimGroup:
+    dtAnims:
+    - isSpeedBased: 0
+      delay: 0.1
+      duration: 0.1
+      easeType: 1
+      easeCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+      loopType: 0
+      loops: 0
+      id: 
+      isRelative: 0
+      isFrom: 1
+      isIndependentUpdate: 0
+      targetComponent: {fileID: 0}
+      animationType: 5
+      endValueFloat: 0
+      endValueV3: {x: 0, y: 0, z: 0}
+      endValueV2: {x: 0, y: 0}
+      endValueColor: {r: 0, g: 0, b: 0, a: 0}
+      endValueString: 
+      endValueRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      optionalBool0: 1
+      optionalFloat0: 0
+      optionalInt0: 0
+      optionalRotationMode: 0
+      optionalScrambleMode: 0
+      optionalString: 
+    - isSpeedBased: 0
+      delay: 0
+      duration: 0.2
+      easeType: 1
+      easeCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+      loopType: 0
+      loops: 0
+      id: 
+      isRelative: 0
+      isFrom: 1
+      isIndependentUpdate: 0
+      targetComponent: {fileID: 0}
+      animationType: 3
+      endValueFloat: 0
+      endValueV3: {x: 180, y: 50, z: 0}
+      endValueV2: {x: 0, y: 0}
+      endValueColor: {r: 0, g: 0, b: 0, a: 0}
+      endValueString: 
+      endValueRect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 0
+        height: 0
+      optionalBool0: 0
+      optionalFloat0: 0
+      optionalInt0: 0
+      optionalRotationMode: 0
+      optionalScrambleMode: 0
+      optionalString: 
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,72 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   categoryName: Default
   presets:
-  - {fileID: -8700393574565491708}
-  - {fileID: 2227438762612481184}
---- !u!114 &2227438762612481184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748f9cb2ffe1d6548adbd6d560f15c07, type: 3}
-  m_Name: JumpOut_M
-  m_EditorClassIdentifier: 
-  presetName: JumpOut_M
-  dtAnim:
-    isSpeedBased: 0
-    delay: 0
-    duration: 0.1
-    easeType: 27
-    easeCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    loopType: 0
-    loops: 1
-    id: 
-    isRelative: 0
-    isFrom: 1
-    isIndependentUpdate: 0
-    targetComponent: {fileID: 0}
-    animationType: 5
-    endValueFloat: 0
-    endValueV3: {x: 0, y: 0, z: 0}
-    endValueV2: {x: 0, y: 0}
-    endValueColor: {r: 1, g: 1, b: 1, a: 1}
-    endValueString: 
-    endValueRect:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 0
-      height: 0
-    optionalBool0: 1
-    optionalFloat0: 0
-    optionalInt0: 0
-    optionalRotationMode: 0
-    optionalScrambleMode: 0
-    optionalString: 
+  - {fileID: -7682026093800726384}

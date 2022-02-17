@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using DG.DOTweenEditor.UI;
@@ -63,7 +63,6 @@ namespace DtAnim
             m_src = EditorHelper.GetTargetObjectOfProperty(property) as DtAnim;
             EditorGUI.BeginProperty(position, label, property);
 
-            GUILayout.BeginVertical(GUI.skin.window);
             GUILayout.BeginVertical(GUI.skin.box);
             {
                 DrawAnimationTypeGUI();
@@ -73,7 +72,6 @@ namespace DtAnim
                     DrawDtAnimDataGUI();
                 }
             }
-            GUILayout.EndVertical();
             GUILayout.EndVertical();
 
             EditorGUI.EndProperty();
@@ -149,7 +147,7 @@ namespace DtAnim
             m_src.delay = EditorGUILayout.FloatField("Delay", m_src.delay);
             if (m_src.delay < 0) m_src.delay = 0;
             m_src.isIndependentUpdate = EditorGUILayout.Toggle("Ignore TimeScale", m_src.isIndependentUpdate);
-            m_src.easeType = EditorGUIUtils.FilteredEasePopup("Ease",m_src.easeType);
+            m_src.easeType = EditorGUIUtils.FilteredEasePopup("Ease", m_src.easeType);
             if (m_src.easeType == Ease.INTERNAL_Custom)
             {
                 m_src.easeCurve = EditorGUILayout.CurveField("   Ease Curve", m_src.easeCurve);

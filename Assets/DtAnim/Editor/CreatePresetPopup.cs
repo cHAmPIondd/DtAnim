@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -7,15 +7,15 @@ namespace DtAnim
 {
     public class CreatePresetPopup : EditorWindow
     {
-        public static void Popup(DtAnim _dtAnim, string _initalCategory, System.Action<string, string> _createCallback)
+        public static void Popup(DtAnimGroup _dtAnimGroup, string _initalCategory, System.Action<string, string> _createCallback)
         {
             CreatePresetPopup window = (CreatePresetPopup)EditorWindow.GetWindowWithRect<CreatePresetPopup>(new Rect(Screen.width / 2, Screen.height / 2, 400, 150), true, "Create New Preset", true);
-            window.m_dtAnim = _dtAnim;
+            window.m_dtAnimGroup = _dtAnimGroup;
             window.m_categoryName = _initalCategory;
             window.m_createCallback = _createCallback;
             window.ShowPopup();
         }
-        private DtAnim m_dtAnim;
+        private DtAnimGroup m_dtAnimGroup;
         private string m_categoryName;
         private string m_presetName;
         private System.Action<string, string> m_createCallback;
@@ -50,7 +50,7 @@ namespace DtAnim
                     GUI.enabled = false;
                 if (GUILayout.Button("Create", GUILayout.Width(60)))
                 {
-                    DtAnimPresetManager.Instance.CreateNewPreset(m_categoryName, m_presetName, m_dtAnim);
+                    DtAnimPresetManager.Instance.CreateNewPreset(m_categoryName, m_presetName, m_dtAnimGroup);
                     m_createCallback?.Invoke(m_categoryName, m_presetName);
                     Close();
                 }

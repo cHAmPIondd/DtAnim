@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
@@ -58,7 +58,7 @@ namespace DtAnim
         TextMeshProUGUI = 15
     }
     [System.Serializable]
-    public class DtAnim : ICloneable
+    public class DtAnim
     {
         static readonly Dictionary<DOTweenAnimationType, Type[]> _AnimationTypeToComponent = new Dictionary<DOTweenAnimationType, Type[]>() {
             { DOTweenAnimationType.Move, new[] { typeof(Rigidbody), typeof(Rigidbody2D), typeof(RectTransform), typeof(Transform) } },
@@ -128,13 +128,13 @@ namespace DtAnim
         public ScrambleMode optionalScrambleMode = ScrambleMode.None;
         public string optionalString;
 
-        public Tween CreateNewTween(GameObject _target)
+        public DtAnimTween CreateNewTween(GameObject _target)
         {
             Tween tween = null;
             if (Validate(_target) == false)
             {
-                Debug.LogWarning("Tween Animation is not valid");
-                return tween;
+                //Debug.LogWarning("Tween Animation is not valid");
+                return null;
             }
             Assert.IsNotNull(targetComponent);
 
@@ -352,7 +352,8 @@ namespace DtAnim
                     break;
             }
 
-            if (tween == null) return tween;
+            if (tween == null)
+                return null;
 
             if (isFrom)
             {
@@ -371,7 +372,7 @@ namespace DtAnim
 
             tween.Pause();
 
-            return tween;
+            return new DtAnimTween(tween, isFrom);
         }
         #region Internal Static Helpers (also used by Inspector)
 
@@ -392,7 +393,7 @@ namespace DtAnim
         bool Validate(GameObject _target)
         {
             if (animationType == DOTweenAnimationType.None) return false;
-
+            if (duration == 0) return false;
             Component srcTarget;
             // First check for external plugins
 #if DOTWEEN_TK2D
@@ -434,8 +435,7 @@ namespace DtAnim
             }
             return false;
         }
-        #region Implemention of ICloneable
-        public object Clone()
+        public DtAnim Clone()
         {
             return new DtAnim()
             {
@@ -465,6 +465,5 @@ namespace DtAnim
                 optionalString = optionalString,
             };
         }
-        #endregion
     }
 }

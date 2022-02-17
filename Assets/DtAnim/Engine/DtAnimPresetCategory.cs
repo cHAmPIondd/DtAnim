@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -19,22 +19,22 @@ namespace DtAnim
             var preset = presets.Find(x => x.presetName == _presetName);
             return preset != null;
         }
-        public void CreateNewPreset(string _presetName, DtAnim _dtAnim)
+        public void CreateNewPreset(string _presetName, DtAnimGroup _dtAnimGroup)
         {
             Assert.IsNull(presets.Find(x => x.presetName == _presetName));
             var newPreset = CreateInstance<DtAnimPreset>();
             newPreset.name = _presetName;
             newPreset.presetName = _presetName;
-            newPreset.dtAnim = _dtAnim.Clone() as DtAnim;
+            newPreset.dtAnimGroup = _dtAnimGroup.Clone();
             presets.Add(newPreset);
             UnityEditor.AssetDatabase.AddObjectToAsset(newPreset, this);
             UnityEditor.EditorUtility.SetDirty(this);
             //UnityEditor.AssetDatabase.SaveAssets();
         }
-        public void UpdatePreset(string _presetName, DtAnim _dtAnim)
+        public void UpdatePreset(string _presetName, DtAnimGroup _dtAnimGroup)
         {
             var preset = presets.Find(x => x.presetName == _presetName);
-            preset.dtAnim = _dtAnim.Clone() as DtAnim;
+            preset.dtAnimGroup = _dtAnimGroup.Clone();
             UnityEditor.EditorUtility.SetDirty(this);
             //UnityEditor.AssetDatabase.SaveAssets();
         }

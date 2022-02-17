@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -70,13 +70,16 @@ namespace DtAnim
                 if (GUILayout.Button("Play"))
                 {
                     m_src.Reset();
-                    m_src.CreateNewTween();
-                    DOTweenEditorPreview.PrepareTweenForPreview(m_src.m_tween);
-                    DOTweenEditorPreview.Start();
+                    m_src.DOPlay(
+                        () =>
+                        {
+                            m_src.Reset();
+                        });
                 }
                 if (GUILayout.Button("Reset"))
                 {
                     m_src.Reset();
+                    DOTweenEditorPreview.Stop();
                 }
                 GUILayout.EndHorizontal();
             }
@@ -126,7 +129,7 @@ namespace DtAnim
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Create New Preset", GUILayout.MaxWidth(180)))
                 {
-                    CreatePresetPopup.Popup(m_src.dtAnim, m_src.categoryName,
+                    CreatePresetPopup.Popup(m_src.dtAnimGroup, m_src.categoryName,
                         (_newCategoryName, _newPresetName) =>
                         {
                             m_src.categoryName = _newCategoryName;
@@ -138,11 +141,11 @@ namespace DtAnim
                 GUI.enabled = presetIndex != 0 && lastGUIEnable;
                 if (GUILayout.Button("Load"))
                 {
-                    m_src.dtAnim = DtAnimPresetManager.Instance.LoadPreset(m_src.categoryName, m_src.presetName);
+                    m_src.dtAnimGroup = DtAnimPresetManager.Instance.LoadPreset(m_src.categoryName, m_src.presetName);
                 }
                 if (GUILayout.Button("Save"))
                 {
-                    DtAnimPresetManager.Instance.UpdatePreset(m_src.categoryName, m_src.presetName, m_src.dtAnim);
+                    DtAnimPresetManager.Instance.UpdatePreset(m_src.categoryName, m_src.presetName, m_src.dtAnimGroup);
                 }
                 if (GUILayout.Button("Delete"))
                 {
@@ -165,7 +168,7 @@ namespace DtAnim
         {
             var lastGUIEnable = GUI.enabled;
             GUI.enabled = m_src.isLoadPresetAtRuntime == false && lastGUIEnable;
-            var dtAnimProperty = property.FindPropertyRelative("dtAnim");
+            var dtAnimProperty = property.FindPropertyRelative("dtAnimGroup");
             EditorGUILayout.PropertyField(dtAnimProperty);
             GUI.enabled = lastGUIEnable;
         }

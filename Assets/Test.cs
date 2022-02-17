@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using DtAnim;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,21 +10,12 @@ public class Test : MonoBehaviour
     public DtAnimBehavior hide;
     private void Awake()
     {
-        show.onComplete += () => {
-            Debug.Log("Complete");
-        };
-        show.onPlay += () => {
-            Debug.Log("Play");
-        };
-        show.onStop += () => {
-            Debug.Log("Stop");
-        };
     }
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
             show.DOPlay();
-        if(Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             show.DOComplete(true);
         }
@@ -32,5 +23,7 @@ public class Test : MonoBehaviour
         {
             show.DOComplete(false);
         }
+        if (Input.GetKeyDown(KeyCode.F4))
+            show.Reset();
     }
 }

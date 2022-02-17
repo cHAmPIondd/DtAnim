@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,13 +34,13 @@ namespace DtAnim
             m_storedPath = Path.Combine(assetDir, "Resources", "Presets");
 #endif
         }
-        public DtAnim LoadPreset(string _categoryName, string _presetName)
+        public DtAnimGroup LoadPreset(string _categoryName, string _presetName)
         {
             var preset = categorys.Where(x => x.categoryName == _categoryName)
                      .Select(x => x.GetPreset(_presetName));
             if (preset.Count() > 0)
-                return preset.FirstOrDefault().dtAnim.Clone() as DtAnim;
-            return new DtAnim();
+                return preset.FirstOrDefault().dtAnimGroup.Clone();
+            return new DtAnimGroup();
         }
 #if UNITY_EDITOR
         public List<string> GetCatergoryNames()
@@ -65,17 +65,17 @@ namespace DtAnim
             if (category == null) return false;
             return category.IsExistPreset(_presetName);
         }
-        public void CreateNewPreset(string _categoryName, string _presetName, DtAnim _dtAnim)
+        public void CreateNewPreset(string _categoryName, string _presetName, DtAnimGroup _dtAnimGroup)
         {
             var category = GetCategory(_categoryName, true);
-            category.CreateNewPreset(_presetName, _dtAnim);
+            category.CreateNewPreset(_presetName, _dtAnimGroup);
         }
-        public void UpdatePreset(string _categoryName, string _presetName, DtAnim _dtAnim)
+        public void UpdatePreset(string _categoryName, string _presetName, DtAnimGroup _dtAnimGroup)
         {
             var category = GetCategory(_categoryName, false);
             if (category != null)
             {
-                category.UpdatePreset(_presetName, _dtAnim);
+                category.UpdatePreset(_presetName, _dtAnimGroup);
             }
         }
         public void DeletePreset(string _categoryName, string _presetName)
@@ -109,6 +109,7 @@ namespace DtAnim
         {
             var newCatergory = CreateInstance<DtAnimPresetCategory>();
             newCatergory.categoryName = _categoryName;
+
             UnityEditor.AssetDatabase.CreateAsset(newCatergory, Path.Combine(m_storedPath, _categoryName + ".asset"));
             return newCatergory;
         }
